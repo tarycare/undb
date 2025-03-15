@@ -5,6 +5,8 @@ services:
       dockerfile: Dockerfile
       args:
         - CDN_URL=${CDN_URL:-}
+      # Add memory limit for the build process
+      shm_size: '2gb'
     container_name: undb
     volumes:
       - .undb:/usr/src/app/.undb
@@ -14,6 +16,7 @@ services:
       # General Configuration
       - NODE_ENV=production
       - PORT=3721
+      - NODE_OPTIONS=--max-old-space-size=4096
       - LOG_LEVEL=${LOG_LEVEL:-debug}
       - UNDB_BASE_URL=${UNDB_BASE_URL:-http://localhost:3721}
       
@@ -45,6 +48,8 @@ services:
       - UNDB_ADMIN_EMAIL=${UNDB_ADMIN_EMAIL:-admin@undb.io}
       - UNDB_ADMIN_PASSWORD=${UNDB_ADMIN_PASSWORD:-admin}
     restart: unless-stopped
+    # Add memory limit for the running container
+    mem_limit: 2g
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3721/health"]
       interval: 30s
