@@ -11,7 +11,7 @@ services:
     volumes:
       - .undb:/usr/src/app/.undb
     ports:
-      - ${UNDB_PORT:-3721}:3721
+      - 3721:3721
     environment:
       # General Configuration
       - NODE_ENV=production
