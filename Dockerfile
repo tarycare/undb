@@ -27,15 +27,18 @@ RUN mkdir .undb
 
 ENV NODE_ENV=production
 ENV PORT=3721
-RUN bun run build:docker
+# Increase memory limit for Node.js/Bun
+ENV NODE_OPTIONS="--max-old-space-size=8192"
+# Use a more memory-efficient build command
+RUN NODE_OPTIONS="--max-old-space-size=8192" bun run build:docker
 
 RUN bunx rimraf node_modules
 RUN bun install --production
 
 # Add Tini init-system
 ENV TINI_VERSION v0.19.0
-RUN curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static -o /tini
-RUN chmod +x /tini
+RUN curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static -o /tini \
+    && chmod +x /tini
 
 # Stage 4: Release
 FROM oven/bun AS release
@@ -45,8 +48,7 @@ ENV PORT=3721
 
 WORKDIR /usr/src/app
 
-RUN mkdir .undb
-RUN mkdir .undb/storage
+RUN mkdir -p .undb/storage
 
 COPY --from=prerelease /usr/src/app/apps/backend/undb .
 COPY --from=prerelease /usr/src/app/node_modules ./node_modules
