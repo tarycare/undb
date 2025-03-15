@@ -31,7 +31,7 @@
     <slot />
     <div class="text-muted-foreground absolute bottom-5 right-5 flex items-center justify-center text-sm">
       <img src={Logo} alt="undb" class="mr-2 h-4 w-4" />
-      Powered by <a href="https://undb.io" class="text-primary underline">&nbsp;undb</a>
+      Powered by <a href="https://www.tary.care" class="text-primary underline">&nbsp;tary</a>
     </div>
   </main>
 {/if}
