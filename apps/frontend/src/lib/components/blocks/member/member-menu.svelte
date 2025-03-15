@@ -68,25 +68,6 @@
         <KeyIcon class="mr-2 h-4 w-4" />
         {$LL.account.apiToken()}
       </DropdownMenu.Item>
-      <DropdownMenu.Item href="/playground">
-        <PipetteIcon class="mr-2 h-4 w-4" />
-        {$LL.playground.playgroundMode()}
-      </DropdownMenu.Item>
-      <DropdownMenu.Item href="https://undb.io/templates" target="_blank" rel="noopener noreferrer">
-        <img src={Logo} alt="undb" class="mr-2 h-4 w-4" />
-        {$LL.account.undbTemplates()}
-        <ExternalLinkIcon class="ml-auto h-4 w-4" />
-      </DropdownMenu.Item>
-      <DropdownMenu.Item href="https://undb.io" target="_blank" rel="noopener noreferrer">
-        <img src={Logo} alt="undb" class="mr-2 h-4 w-4" />
-        {$LL.account.undbWebsite()}
-        <ExternalLinkIcon class="ml-auto h-4 w-4" />
-      </DropdownMenu.Item>
-      <DropdownMenu.Item href="https://github.com/undb-io/undb" target="_blank" rel="noopener noreferrer">
-        <img src={GithubLogo} alt="undb" class="mr-2 h-4 w-4" />
-        Github
-        <ExternalLinkIcon class="ml-auto h-4 w-4" />
-      </DropdownMenu.Item>
       <DropdownMenu.Sub>
         <DropdownMenu.SubTrigger>
           <EarthIcon class="mr-2 h-4 w-4" />
