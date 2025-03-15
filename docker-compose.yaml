@@ -3,14 +3,17 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - CDN_URL=${CDN_URL:-}
     container_name: undb
     volumes:
-      - .:/app
-      - /app/node_modules
+      - .undb:/usr/src/app/.undb
     ports:
       - ${UNDB_PORT:-3721}:3721
     environment:
       # General Configuration
+      - NODE_ENV=production
+      - PORT=3721
       - LOG_LEVEL=${LOG_LEVEL:-debug}
       - UNDB_BASE_URL=${UNDB_BASE_URL:-http://localhost:3721}
       
@@ -41,3 +44,13 @@ services:
       - UNDB_DISABLE_REGISTRATION=${UNDB_DISABLE_REGISTRATION:-true}
       - UNDB_ADMIN_EMAIL=${UNDB_ADMIN_EMAIL:-admin@undb.io}
       - UNDB_ADMIN_PASSWORD=${UNDB_ADMIN_PASSWORD:-admin}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3721/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  .undb:
