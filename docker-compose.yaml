@@ -50,12 +50,14 @@ services:
     restart: unless-stopped
     # Add memory limit for the running container
     mem_limit: 2g
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3721/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+healthcheck:
+  test: ["CMD", "wget", "-q", "--spider", "http://localhost:3721/health"]
+  # Or use this alternative if wget isn't available either
+  # test: ["CMD-SHELL", "bun --eval 'fetch(\"http://localhost:3721/health\").then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))'"]
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 40s
 
 volumes:
   .undb:
